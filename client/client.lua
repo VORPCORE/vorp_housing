@@ -88,7 +88,7 @@ if CONFIG.DEV_MODE then
         local houses <const> = CONFIG.HOUSES
 
         for _, blip in ipairs(blips) do
-            Blips:Remove(blip)
+            RemoveBlip(blip)
         end
 
         table.wipe(blips)
