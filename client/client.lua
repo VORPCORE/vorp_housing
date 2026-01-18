@@ -84,19 +84,14 @@ if CONFIG.DEV_MODE then
     end)
 
     local blips <const> = {}
-    local blipsVisible = false
     RegisterNetEvent("vorp_housing:Client:ShowHouses", function()
         local houses <const> = CONFIG.HOUSES
 
-        if blipsVisible then
-            for _, blip in ipairs(blips) do
-                blip:Remove()
-            end
-
-            table.wipe(blips)
-            blipsVisible = false
-            return
+        for _, blip in ipairs(blips) do
+            RemoveBlip(blip)
         end
+
+        table.wipe(blips)
 
         for index, house in ipairs(houses) do
             local blip = Blips:Create('coords', {
@@ -107,9 +102,7 @@ if CONFIG.DEV_MODE then
                     name = "House index: " .. index,
                 },
             })
-            table.insert(blips, blip)
+            table.insert(blips, blip:GetHandle())
         end
-
-        blipsVisible = true
     end)
 end
