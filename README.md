@@ -219,6 +219,14 @@ STORAGES = {
 > [!NOTE]
 > This script is best for staff housing, faction housing, gang housing, or manually assigned private homes.
 
+## Support
+
+If you run into an issue:
+
+- if you know your way around the code, feel free to open a PR
+- if not, open an issue on GitHub
+- or join the VORP Discord: [discord.gg/DHGVAbCj7N](https://discord.gg/DHGVAbCj7N)
+
 ## Credits
 
 - VORP Core team
