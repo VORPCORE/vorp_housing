@@ -1,223 +1,71 @@
 # vorp_housing
 
-`vorp_housing` is a simple housing access resource for VORP.
+`vorp_housing` is a lightweight housing access system for RedM servers running VORP.
 
-This script does not handle buying or selling houses in-game. Houses are configured manually in [config.lua](./config.lua), and access is given to specific characters using their `charIdentifier`.
+This version is not a real estate market script. It does not let players buy or sell houses in-game. Instead, houses are defined directly in [config.lua](./config.lua), and access is granted to specific characters through their `charIdentifier`.
 
-What it does:
+If what you want is a clean way to:
 
-- gives selected characters access to specific houses
-- gives selected characters access to specific storages
-- gives selected characters access to specific doors
-- shows a private house blip if you enable it
+- assign houses to characters
+- give selected characters door access
+- give selected characters storage access
+- show private house blips only to the right owners
+
+then this resource is exactly that.
 
 > [!NOTE]
-> This version is config-based. If you want to give a house to someone, you edit the config and add their `charIdentifier`.
+> This repo is closer to a permission-based housing layer than a full economy housing system. Ownership is configured by hand in the config file.
 
 ## Installation
 
-1. Put `vorp_housing` in your resources folder.
-2. Make sure these resources are running before it:
-   - `vorp_core`
-   - `vorp_lib`
-   - `vorp_inventory`
-   - `vorp_doorlocks`
-   - `oxmysql`
-3. Add this to your server config:
+1. Place `vorp_housing` in your server resources folder.
+2. Make sure all required dependencies are already started.
+3. Add `ensure vorp_housing` to your server config.
+4. Open [config.lua](./config.lua) and configure your houses.
+5. Restart the resource.
 
-```cfg
-ensure vorp_housing
-```
+## How Doors Work
 
-4. Restart the server or restart the resource.
+Doors are not handled internally by a custom lock system in this script.
 
-## How It Works
+This resource delegates door permissions to `vorp_doorlocks`.
 
-Each house is defined in [config.lua](./config.lua).
+When a valid owner loads in, [server/server.lua](./server/server.lua) gives that player permission on every door ID listed under the house if `DOOR = true`.
 
-Each house can contain:
-
-- a house position
-- a blip
-- one or more owners
-- one or more storages
-- one or more door IDs
-
-When a player selects their character, the script checks if that character `charIdentifier` exists in one of the house owner lists.
-
-If it does:
-
-- the script gives door permission through `vorp_doorlocks`
-- the script registers the storages for that house
-- the player gets the matching prompts and house blip
-
-## How To Configure A House
-
-Everything is configured in [config.lua](./config.lua).
-
-Minimal example:
-
-```lua
-{
-    POSITION = vector3(1118.06, -1987.89, 55.34),
-
-    BLIP = {
-        ENABLE = true,
-        SPRITE = `blip_mp_base`,
-        STYLE = `BLIP_STYLE_PROPERTY_OWNER`,
-        NAME = "My House",
-    },
-
-    OWNERS = {
-        [12] = {
-            DOOR = true,
-            STORAGE = true,
-            BLIP_VISIBLE = true,
-        },
-    },
-
-    STORAGES = {
-        {
-            ID = 99,
-            MAX_SLOTS = 100,
-            LOCATION = vector3(1119.03, -1985.67, 55.35),
-            LABEL = "Storage",
-            WEAPONS = true,
-            SHARED = true,
-            BLACKLISTED_ITEMS = {},
-        }
-    },
-
-    DOORS = {
-        3921310299
-    }
-}
-```
-
-Main fields:
-
-- `POSITION`: center of the house, also used for the blip
-- `BLIP`: house blip settings
-- `OWNERS`: which characters can use the house
-- `STORAGES`: storage list for that house
-- `DOORS`: door IDs that belong to that house
-
-## How To Add Doors
-
-This script does not create doors by itself.
-
-Doors must already exist in `vorp_doorlocks`.
-
-So the correct setup is:
-
-1. Open your `vorp_doorlocks` config.
-2. Add the door there first.
-3. Get the correct door ID.
-4. Put that same door ID inside the house `DOORS` table in `vorp_housing`.
-
-Example:
+Each house uses:
 
 ```lua
 DOORS = {
-    3921310299,
-    640077562
+    4070066247,
+    3444471262
 }
 ```
 
-> [!IMPORTANT]
-> If the door is not configured in `vorp_doorlocks`, `vorp_housing` cannot manage permission for it.
+Those values must match valid door IDs already managed by `vorp_doorlocks`.
 
-`vorp_doorlocks` also mentions that house-style unique permissions use `charidentifier` values from the `characters` table. In this housing script, the permission is applied automatically when the character is listed in the house `OWNERS` table.
-
-If you need help finding door IDs, the doorlocks config points to this reference:
-
-- `https://github.com/femga/rdr3_discoveries/blob/master/doorHashes/doorhashes.lua`
-
-## How To Add Character IDs
-
-This is the part most people need.
-
-You need the character `charIdentifier`, not the player source.
-
-You can get it from your database in the `characters` table.
-
-Example query:
-
-```sql
-SELECT charidentifier, firstname, lastname
-FROM characters
-ORDER BY charidentifier ASC;
-```
-
-That will give you the list of character IDs with names.
-
-Then you add the wanted `charidentifier` inside the house `OWNERS` table.
-
-Example:
-
-```lua
-OWNERS = {
-    [34] = {
-        DOOR = true,
-        STORAGE = true,
-        BLIP_VISIBLE = true,
-    },
-    [52] = {
-        DOOR = true,
-        STORAGE = false,
-        BLIP_VISIBLE = true,
-    },
-}
-```
-
-In this example:
-
-- character `34` can use doors, storage, and see the blip
-- character `52` can use doors and see the blip, but cannot access storage
+If the door does not exist in your doorlock setup, this script cannot magically manage it for you.
 
 > [!WARNING]
-> `charIdentifier` is not the same as steam, license, or server id. If you use the wrong value, the player will not get access.
+> A wrong door ID will not give the player access to the correct door. Always verify your door IDs in `vorp_doorlocks` first.
 
-## How Storage Works
 
-Each storage entry has:
+## Configuration Guide
 
-- `ID`: must stay unique
-- `MAX_SLOTS`: inventory size
-- `LOCATION`: where the prompt appears
-- `LABEL`: storage name
-- `WEAPONS`: allow weapons or not
-- `SHARED`: shared between owners or personal per owner
-- `BLACKLISTED_ITEMS`: items blocked from that storage
+Most of the script is configured in [config.lua](./config.lua).
 
-Example:
+## Common Setup Mistakes
 
-```lua
-STORAGES = {
-    {
-        ID = 1,
-        MAX_SLOTS = 100,
-        LOCATION = vector3(-391.28, 1728.72, 216.44),
-        LABEL = "Food Storage",
-        WEAPONS = true,
-        SHARED = true,
-        BLACKLISTED_ITEMS = {
-            "water",
-            "bread",
-        },
-    }
-}
-```
+The most common issues are usually these:
 
-## Things To Watch
+- using the wrong `charIdentifier`
+- forgetting to add the correct door IDs in `vorp_doorlocks`
+- reusing a storage `ID`
+- putting the wrong storage `LOCATION`
+- expecting players to buy houses in-game when this version does not support that
+- leaving `CONFIG.DEV_MODE = true` on production
 
-- Storage `ID` values must be unique.
-- Door IDs must exist in `vorp_doorlocks`.
-- Owner IDs must be real `charidentifier` values from the `characters` table.
-- After changing the config, restart `vorp_housing`.
-
-> [!NOTE]
-> This script is best for staff housing, faction housing, gang housing, or manually assigned private homes.
+> [!IMPORTANT]
+> If a player can see the house but cannot open doors or storage, check the owner entry first. In most cases, the issue is either a wrong `charIdentifier` or a permission flag set to `false`.
 
 ## Support
 
@@ -226,8 +74,3 @@ If you run into an issue:
 - if you know your way around the code, feel free to open a PR
 - if not, open an issue on GitHub
 - or join the VORP Discord: [discord.gg/DHGVAbCj7N](https://discord.gg/DHGVAbCj7N)
-
-## Credits
-
-- VORP Core team
-- Original repository: [VORPCORE/vorp_housing](https://github.com/VORPCORE/vorp_housing)
