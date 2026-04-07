@@ -11,28 +11,11 @@ local Core <const>    = exports.vorp_core:GetCore()
 
 local function registerLocations()
     local values <const> = CONFIG.HOUSES[OWNED_INDEX]
-    local locations <const> = {}
-    for _, storage in ipairs(values.STORAGES) do
-        table.insert(locations, {
-            coords = storage.LOCATION,
-            label = storage.LABEL,
-            distance = 2.0,
-            type = "storage",
-        })
-    end
+    if not values then return end
 
-    if values.WARDROBE.ENABLE then
-        table.insert(locations, {
-            coords = values.WARDROBE.LOCATION,
-            label = values.WARDROBE.LABEL,
-            distance = 2.0,
-            type = "wardrobe",
-        })
-    end
-
-    local data = {
+    local data <const> = {
         sleep = 800,
-        locations = locations,
+        locations = {},
         prompts = {
             {
                 type = "Press",
@@ -43,7 +26,26 @@ local function registerLocations()
         }
     }
 
-    Prompts:Register(data, function(_, index, self)
+    for index, storage in ipairs(values.STORAGES) do
+        table.insert(data.locations, {
+            coords = storage.LOCATION,
+            label = storage.LABEL,
+            distance = 2.0,
+            id = ("storage_%s"):format(index),
+        })
+    end
+
+    if values.WARDROBE.ENABLE then
+        table.insert(data.locations, {
+            coords = values.WARDROBE.LOCATION,
+            label = values.WARDROBE.LABEL,
+            distance = 2.0,
+            id = "wardrobe",
+        })
+    end
+
+
+    Prompts:Register(data, function(_, index, _, value)
         local location <const> = CONFIG.HOUSES[OWNED_INDEX]
         if not location then return end
 
@@ -51,11 +53,13 @@ local function registerLocations()
             return Core.NotifyObjective(CONFIG.TRANSLATION.not_owner, 5000)
         end
 
-        if self.type == "storage" then
+        if value.id == ("storage_%s"):format(index) then
             local storage <const> = location.STORAGES[index]
             if not storage then return end
-            TriggerServerEvent("vorp_housing:Server:OpenStorage", OWNED_INDEX, index)
-        else
+            return TriggerServerEvent("vorp_housing:Server:OpenStorage", OWNED_INDEX, index)
+        end
+
+        if value.id == "wardrobe" then
             TriggerServerEvent("vorp_housing:Server:OpenWardrobe", OWNED_INDEX)
         end
     end, true) -- auto start on register
