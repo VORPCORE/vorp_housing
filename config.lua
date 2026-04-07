@@ -27,7 +27,7 @@ CONFIG.HOUSES = {
 
         WARDROBE = {
             ENABLE = true,
-            LOCATION = vector3(-391.28, 1728.72, 216.44),
+            LOCATION = vector3(-397.22, 1728.51, 216.54),
             LABEL = "Wardrobe",
         },
 
