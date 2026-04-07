@@ -90,6 +90,26 @@ RegisterServerEvent("vorp_housing:Server:OpenStorage", function(index, storageIn
     Inventory:openInventory(_source, prefix)
 end)
 
+RegisterServerEvent("vorp_housing:Server:OpenWardrobe", function(index)
+    local _source <const> = source
+    local config <const> = CONFIG.HOUSES[index]
+    if not config then
+        return print("House not found")
+    end
+
+    if not config.WARDROBE.ENABLE then
+        return print("Wardrobe is not enabled for this house")
+    end
+    local wardrobeCoords <const> = config.WARDROBE.LOCATION
+    local pedCoords <const> = GetEntityCoords(GetPlayerPed(_source))
+    if #(pedCoords - wardrobeCoords) > 10.0 then
+        return print("Player is not close to this wardrobe")
+    end
+
+    local result <const> = exports.vorp_character:OpenOutfitsMenu(_source)
+    if not result then return print("Failed to open wardrobe") end
+end)
+
 
 --FOR TESTS
 if CONFIG.DEV_MODE then

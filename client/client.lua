@@ -17,6 +17,16 @@ local function registerLocations()
             coords = storage.LOCATION,
             label = storage.LABEL,
             distance = 2.0,
+            type = "storage",
+        })
+    end
+
+    if values.WARDROBE.ENABLE then
+        table.insert(locations, {
+            coords = values.WARDROBE.LOCATION,
+            label = values.WARDROBE.LABEL,
+            distance = 2.0,
+            type = "wardrobe",
         })
     end
 
@@ -33,7 +43,7 @@ local function registerLocations()
         }
     }
 
-    Prompts:Register(data, function(_, index, _)
+    Prompts:Register(data, function(_, index, self)
         local location <const> = CONFIG.HOUSES[OWNED_INDEX]
         if not location then return end
 
@@ -41,10 +51,13 @@ local function registerLocations()
             return Core.NotifyObjective(CONFIG.TRANSLATION.not_owner, 5000)
         end
 
-        local storage <const> = location.STORAGES[index]
-        if not storage then return end
-
-        TriggerServerEvent("vorp_housing:Server:OpenStorage", OWNED_INDEX, index)
+        if self.type == "storage" then
+            local storage <const> = location.STORAGES[index]
+            if not storage then return end
+            TriggerServerEvent("vorp_housing:Server:OpenStorage", OWNED_INDEX, index)
+        else
+            TriggerServerEvent("vorp_housing:Server:OpenWardrobe", OWNED_INDEX)
+        end
     end, true) -- auto start on register
 end
 

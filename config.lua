@@ -25,12 +25,19 @@ CONFIG.HOUSES = {
             NAME = "My House",
         },
 
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(-391.28, 1728.72, 216.44),
+            LABEL = "Wardrobe",
+        },
+
         OWNERS = {
-            [1] = {
+            [1] = {                  -- CHARACTER ID'S for the owners this player can only own one house
                 DOOR = true,         -- CAN OPEN AND CLOSE DOORS?
                 STORAGE = true,      -- CAN ACCESS STORAGES?
                 BLIP_VISIBLE = true, -- CAN SEE THE BLIP OF THE HOUSE?
-            },                       --CHARACTER ID'S for the owners this player can only own one house
+                WARDROBE = true,     -- CAN ACCESS WARDROBE?
+            },
         },
 
         -- ONE HOUSE CAN HAVE MORE THAN ONE STORAGE
@@ -78,6 +85,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -112,6 +120,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -147,6 +156,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -181,6 +191,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -215,6 +226,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -253,6 +265,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -288,6 +301,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -323,6 +337,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -359,6 +374,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -393,6 +409,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -430,6 +447,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -465,6 +483,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
@@ -500,6 +519,7 @@ CONFIG.HOUSES = {
                 DOOR = true,
                 STORAGE = true,
                 BLIP_VISIBLE = true,
+                WARDROBE = true,
             },
         },
 
