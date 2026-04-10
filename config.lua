@@ -80,6 +80,12 @@ CONFIG.HOUSES = {
             NAME = "My House",
         },
 
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(1118.96, -1989.63, 55.42),
+            LABEL = "Wardrobe",
+        },
+
         OWNERS = {
             [1] = {
                 DOOR = true,
@@ -114,6 +120,14 @@ CONFIG.HOUSES = {
             STYLE = `BLIP_STYLE_PROPERTY_OWNER`,
             NAME = "My House",
         },
+
+
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(1702.66, 1512.67, 147.92),
+            LABEL = "Wardrobe",
+        },
+
 
         OWNERS = {
             [1] = {
@@ -151,6 +165,12 @@ CONFIG.HOUSES = {
             NAME = "My House",
         },
 
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(1132.72, -980.94, 69.45),
+            LABEL = "Wardrobe",
+        },
+
         OWNERS = {
             [1] = {
                 DOOR = true,
@@ -186,6 +206,12 @@ CONFIG.HOUSES = {
             NAME = "My House",
         },
 
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(2624.99, 1692.77, 115.75),
+            LABEL = "Wardrobe",
+        },
+
         OWNERS = {
             [1] = {
                 DOOR = true,
@@ -219,6 +245,12 @@ CONFIG.HOUSES = {
             SPRITE = `blip_mp_base`,
             STYLE = `BLIP_STYLE_PROPERTY_OWNER`,
             NAME = "My House",
+        },
+
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(1107.6, -1302.6, 66.46),
+            LABEL = "Wardrobe",
         },
 
         OWNERS = {
@@ -260,6 +292,12 @@ CONFIG.HOUSES = {
             NAME = "My House",
         },
 
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(-1357.44, 2443.98, 308.47),
+            LABEL = "Wardrobe",
+        },
+
         OWNERS = {
             [1] = {
                 DOOR = true,
@@ -296,6 +334,12 @@ CONFIG.HOUSES = {
             NAME = "My House",
         },
 
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(-555.6, 2710.54, 320.46),
+            LABEL = "Wardrobe",
+        },
+
         OWNERS = {
             [1] = {
                 DOOR = true,
@@ -330,6 +374,12 @@ CONFIG.HOUSES = {
             SPRITE = `blip_mp_base`,
             STYLE = `BLIP_STYLE_PROPERTY_OWNER`,
             NAME = "My House",
+        },
+
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(779.44, 844.47, 121.97),
+            LABEL = "Wardrobe",
         },
 
         OWNERS = {
@@ -369,6 +419,12 @@ CONFIG.HOUSES = {
             NAME = "My House",
         },
 
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(-690.71, 1045.72, 135.13),
+            LABEL = "Wardrobe",
+        },
+
         OWNERS = {
             [1] = {
                 DOOR = true,
@@ -402,6 +458,12 @@ CONFIG.HOUSES = {
             SPRITE = `blip_mp_base`,
             STYLE = `BLIP_STYLE_PROPERTY_OWNER`,
             NAME = "My House",
+        },
+
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(-614.13, -29.92, 86.02),
+            LABEL = "Wardrobe",
         },
 
         OWNERS = {
@@ -442,6 +504,12 @@ CONFIG.HOUSES = {
             NAME = "My House",
         },
 
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(-2595.87, 460.92, 147.05),
+            LABEL = "Wardrobe",
+        },
+
         OWNERS = {
             [1] = {
                 DOOR = true,
@@ -478,6 +546,12 @@ CONFIG.HOUSES = {
             NAME = "My House",
         },
 
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(-2181.22, 721.0, 126.25),
+            LABEL = "Wardrobe",
+        },
+
         OWNERS = {
             [1] = {
                 DOOR = true,
@@ -512,6 +586,12 @@ CONFIG.HOUSES = {
             SPRITE = `blip_mp_base`,
             STYLE = `BLIP_STYLE_PROPERTY_OWNER`,
             NAME = "My House",
+        },
+
+        WARDROBE = {
+            ENABLE = true,
+            LOCATION = vector3(-1645.93, -1359.01, 87.5),
+            LABEL = "Wardrobe",
         },
 
         OWNERS = {
