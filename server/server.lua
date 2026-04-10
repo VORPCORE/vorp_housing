@@ -40,7 +40,7 @@ local function registerHouse(source, character)
 
                         if #storage.BLACKLISTED_ITEMS > 0 then
                             for _, item in ipairs(storage.BLACKLISTED_ITEMS) do
-                                exports.vorp_inventory:blackListCustomAny(prefix, item)
+                                exports.vorp_inventory:BlackListCustomAny(prefix, item)
                             end
                         end
                     end
