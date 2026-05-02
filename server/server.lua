@@ -52,6 +52,8 @@ end
 
 AddEventHandler("vorp:SelectedCharacter", function(source, character)
     if CONFIG.DEV_MODE then return end
+    -- needs this to change door permissions when registering house
+    repeat Wait(1000) until Player(source).state.IsInSession
     registerHouse(source, character)
 end)
 
